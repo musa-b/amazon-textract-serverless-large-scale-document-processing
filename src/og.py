@@ -58,6 +58,7 @@ class OutputGenerator:
     def _outputTable(self, page, p):
 
         csvData = []
+        table_number = 0
         for table in page.tables:
             csvRow = []
             csvRow.append("Table")
@@ -67,12 +68,15 @@ class OutputGenerator:
                 for cell in row.cells:
                     csvRow.append(cell.text)
                 csvData.append(csvRow)
-            csvData.append([])
-            csvData.append([])
+            # csvData.append([])
+            table_number += 1
 
-        opath = "{}page-{}-tables.csv".format(self.outputPath, p)
-        S3Helper.writeCSVRaw(csvData, self.bucketName, opath)
-        self.saveItem(self.documentId, "page-{}-Tables".format(p), opath)
+            opath = "{}page-{}-tables-{}.csv".format(self.outputPath, p, table_number)
+            S3Helper.writeCSVRaw(csvData, self.bucketName, opath)
+            self.saveItem(self.documentId, "page-{}-Tables".format(p), opath)
+
+            csvData = []
+
 
     def run(self):
 
