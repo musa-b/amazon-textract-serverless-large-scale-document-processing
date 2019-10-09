@@ -34,12 +34,13 @@ def processRequest(request):
         qUrl = request['asyncQueueUrl']
 
     if(qUrl):
-        features = ["Text", "Forms", "Tables"]
+        # features = ["Text", "Forms", "Tables"]
+        features = ["Forms"]
 
-        jsonMessage = { 'documentId' : documentId,
+        jsonMessage = {'documentId': documentId,
             "features" : features,
             'bucketName': bucketName,
-            'objectName' : objectName }
+            'objectName' : objectName}
 
         client = AwsHelper().getClient('sqs')
         postMessage(client, qUrl, jsonMessage)
