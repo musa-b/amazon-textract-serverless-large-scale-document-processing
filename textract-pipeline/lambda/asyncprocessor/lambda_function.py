@@ -32,7 +32,7 @@ def startJob(bucketName, objectName, documentId, snsTopic, snsRole, detectForms,
             features.append("FORMS")
 
         response = client.start_document_analysis(
-            ClientRequestToken  = documentId,
+            ClientRequestToken = documentId,
             DocumentLocation={
                 'S3Object': {
                     'Bucket': bucketName,
@@ -60,6 +60,9 @@ def processItem(message, snsTopic, snsRole):
     objectName = messageBody['objectName']
     documentId = messageBody['documentId']
     features = messageBody['features']
+
+    features = [feature if feature != 'Forms' else '' for feature in features]
+    features = list(filter(lambda feature: feature != '', features))
 
     print('Bucket Name: ' + bucketName)
     print('Object Name: ' + objectName)

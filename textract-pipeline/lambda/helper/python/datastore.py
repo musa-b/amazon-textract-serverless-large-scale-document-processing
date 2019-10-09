@@ -1,7 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 from helper import AwsHelper
-import  datetime
+import datetime
 
 class DocumentStore:
 
@@ -32,7 +32,7 @@ class DocumentStore:
             print(e)
             if e.response['Error']['Code'] == "ConditionalCheckFailedException":
                 print(e.response['Error']['Message'])
-                err  = {'Error' : 'Document already exist.'}
+                err = {'Error': 'Document already exist.'}
             else:
                 raise
 
@@ -47,7 +47,7 @@ class DocumentStore:
 
         try:
             table.update_item(
-                Key = { 'documentId': documentId },
+                Key = {'documentId': documentId},
                 UpdateExpression = 'SET documentStatus= :documentstatusValue',
                 ConditionExpression = 'attribute_exists(documentId)',
                 ExpressionAttributeValues = {
@@ -57,7 +57,7 @@ class DocumentStore:
         except ClientError as e:
             if e.response['Error']['Code'] == "ConditionalCheckFailedException":
                 print(e.response['Error']['Message'])
-                err  = {'Error' : 'Document does not exist.'}
+                err = {'Error': 'Document does not exist.'}
             else:
                 raise
 
@@ -72,7 +72,7 @@ class DocumentStore:
 
         try:
             table.update_item(
-                Key = { 'documentId': documentId },
+                Key = {'documentId': documentId },
                 UpdateExpression = 'SET documentStatus= :documentstatusValue, documentCompletedOn = :documentCompletedOnValue',
                 ConditionExpression = 'attribute_exists(documentId)',
                 ExpressionAttributeValues = {
@@ -83,7 +83,7 @@ class DocumentStore:
         except ClientError as e:
             if e.response['Error']['Code'] == "ConditionalCheckFailedException":
                 print(e.response['Error']['Message'])
-                err  = {'Error' : 'Document does not exist.'}
+                err = {'Error': 'Document does not exist.'}
             else:
                 raise
 
@@ -94,7 +94,7 @@ class DocumentStore:
         dynamodb = AwsHelper().getClient("dynamodb")
 
         ddbGetItemResponse = dynamodb.get_item(
-            Key={'documentId': {'S': documentId} },
+            Key={'documentId': {'S': documentId}},
             TableName=self._documentsTableName
         )
 

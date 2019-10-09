@@ -98,7 +98,7 @@ class OutputGenerator:
             S3Helper.writeToS3(json.dumps(page.blocks), self.bucketName, opath)
             self.saveItem(self.documentId, "page-{}-Response".format(p), opath)
 
-            self._outputText(page, p)
+            # self._outputText(page, p)
 
             docText = docText + page.text + "\n"
 

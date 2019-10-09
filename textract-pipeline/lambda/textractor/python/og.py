@@ -71,12 +71,11 @@ class OutputGenerator:
             # csvData.append([])
             table_number += 1
 
-            opath = "{}page-{}-table-{}.csv".format(self.outputPath, p, table_number)
+            opath = "{}page-{}-tables-{}.csv".format(self.outputPath, p, table_number)
             S3Helper.writeCSVRaw(csvData, self.bucketName, opath)
             self.saveItem(self.documentId, "page-{}-Tables".format(p), opath)
 
             csvData = []
-
 
 
     def run(self):
