@@ -94,9 +94,9 @@ class OutputGenerator:
         p = 1
         for page in self.document.pages:
 
-            opath = "{}page-{}-response.json".format(self.outputPath, p)
-            S3Helper.writeToS3(json.dumps(page.blocks), self.bucketName, opath)
-            self.saveItem(self.documentId, "page-{}-Response".format(p), opath)
+            # opath = "{}page-{}-response.json".format(self.outputPath, p)
+            # S3Helper.writeToS3(json.dumps(page.blocks), self.bucketName, opath)
+            # self.saveItem(self.documentId, "page-{}-Response".format(p), opath)
 
             # self._outputText(page, p)
 
