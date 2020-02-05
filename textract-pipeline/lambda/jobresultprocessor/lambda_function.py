@@ -66,7 +66,7 @@ def processRequest(request):
     detectForms = False
     detectTables = False
     if(jobAPI == "StartDocumentAnalysis"):
-        detectForms = True
+        detectForms = False
         detectTables = True
 
     dynamodb = AwsHelper().getResource('dynamodb')

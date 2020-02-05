@@ -11,7 +11,7 @@ This reference architecture shows how you can extract text and data from documen
 
 ## Architecture
 
-Architecture below shows the core components. 
+Architecture below shows the core components.
 
 ![](arch.png)
 
@@ -115,4 +115,4 @@ Similar architecture can be used for other services like Amazon Rekognition to p
 
 ## License
 
-This library is licensed under the Apache 2.0 License. 
+This library is licensed under the Apache 2.0 License.

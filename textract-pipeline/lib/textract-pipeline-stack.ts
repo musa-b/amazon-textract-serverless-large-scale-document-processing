@@ -1,4 +1,4 @@
-import cdk = require('@aws-cdk/cdk');
+import cdk = require('@aws-cdk/core');
 import events = require('@aws-cdk/aws-events');
 import iam = require('@aws-cdk/aws-iam');
 import { S3EventSource, SqsEventSource, SnsEventSource, DynamoEventSource } from '@aws-cdk/aws-lambda-event-sources';
@@ -20,7 +20,8 @@ export class TextractPipelineStack extends cdk.Stack {
     const textractServiceRole = new iam.Role(this, 'TextractServiceRole', {
       assumedBy: new iam.ServicePrincipal('textract.amazonaws.com')
     });
-    textractServiceRole.addToPolicy(new iam.PolicyStatement().addResource(jobCompletionTopic.topicArn).addAction('sns:Publish'));
+    
+    textractServiceRole.addToPolicy(new iam.PolicyStatement().addResources(jobCompletionTopic.topicArn).addActions('sns:Publish'));
 
     //**********S3 Batch Operations Role******************************
     const s3BatchOperationsRole = new iam.Role(this, 'S3BatchOperationsRole', {
@@ -119,7 +120,7 @@ export class TextractPipelineStack extends cdk.Stack {
 
     //------------------------------------------------------------
 
-    // S3 Batch Operations Event processor 
+    // S3 Batch Operations Event processor
     const s3BatchProcessor = new lambda.Function(this, 'S3BatchProcessor', {
       runtime: lambda.Runtime.Python37,
       code: lambda.Code.asset('lambda/s3batchprocessor'),

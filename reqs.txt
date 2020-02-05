@@ -1,0 +1,26 @@
+  "devDependencies": {
+    "@types/node": "12.x",
+    "aws-cdk": "1.22.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "1.22.0",
+    "@aws-cdk/aws-cloudformation": "^0.28.0",
+    "@aws-cdk/aws-cognito": "^0.28.0",
+    "@aws-cdk/aws-dynamodb": "^0.28.0",
+    "@aws-cdk/aws-elasticsearch": "^0.28.0",
+    "@aws-cdk/aws-events": "^0.28.0",
+    "@aws-cdk/aws-iam": "^0.28.0",
+    "@aws-cdk/aws-lambda": "^0.28.0",
+    "@aws-cdk/aws-lambda-event-sources": "^0.28.0",
+    "@aws-cdk/aws-s3": "^0.28.0",
+    "@aws-cdk/aws-sns": "^0.28.0",
+    "@aws-cdk/aws-sqs": "^0.28.0",
+    "@aws-cdk/cdk": "^0.28.0",
+    "source-map-support": "^0.5.16"
+  }
+}
+
+@aws-cdk/aws-apigateway @aws-cdk/aws-cloudformation @aws-cdk/aws-cognito @aws-cdk/aws-dynamodb @aws-cdk/aws-elasticsearch @aws-cdk/aws-events @aws-cdk/aws-iam @aws-cdk/aws-lambda @aws-cdk/aws-lambda-event-sources @aws-cdk/aws-s3 @aws-cdk/aws-sns @aws-cdk/aws-sqs @aws-cdk/cdk
+
+  source-map-supportcdk 

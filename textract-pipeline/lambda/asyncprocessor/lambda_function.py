@@ -10,41 +10,41 @@ def startJob(bucketName, objectName, documentId, snsTopic, snsRole, detectForms,
 
     response = None
     client = AwsHelper().getClient('textract')
-    if(not detectForms and not detectTables):
-        response = client.start_document_text_detection(
-            ClientRequestToken  = documentId,
-            DocumentLocation={
-                'S3Object': {
-                    'Bucket': bucketName,
-                    'Name': objectName
-                }
-            },
-            NotificationChannel= {
+    # if(not detectForms and not detectTables):
+    #     response = client.start_document_text_detection(
+    #         ClientRequestToken  = documentId,
+    #         DocumentLocation={
+    #             'S3Object': {
+    #                 'Bucket': bucketName,
+    #                 'Name': objectName
+    #             }
+    #         },
+    #         NotificationChannel= {
+    #           "RoleArn": snsRole,
+    #           "SNSTopicArn": snsTopic
+    #        },
+    #        JobTag = documentId)
+    # else:
+    # features  = []
+    # if(detectTables):
+    #     features.append("TABLES")
+    # if(detectForms):
+    #     features.append("FORMS")
+
+    response = client.start_document_analysis(
+        ClientRequestToken = documentId,
+        DocumentLocation={
+            'S3Object': {
+                'Bucket': bucketName,
+                'Name': objectName
+            }
+        },
+        FeatureTypes=["TABLES"],
+        NotificationChannel= {
               "RoleArn": snsRole,
               "SNSTopicArn": snsTopic
            },
-           JobTag = documentId)
-    else:
-        features  = []
-        if(detectTables):
-            features.append("TABLES")
-        if(detectForms):
-            features.append("FORMS")
-
-        response = client.start_document_analysis(
-            ClientRequestToken = documentId,
-            DocumentLocation={
-                'S3Object': {
-                    'Bucket': bucketName,
-                    'Name': objectName
-                }
-            },
-            FeatureTypes=features,
-            NotificationChannel= {
-                  "RoleArn": snsRole,
-                  "SNSTopicArn": snsTopic
-               },
-            JobTag = documentId)
+        JobTag = documentId)
 
     return response["JobId"]
 
@@ -61,8 +61,8 @@ def processItem(message, snsTopic, snsRole):
     documentId = messageBody['documentId']
     features = messageBody['features']
 
-    features = [feature if feature != 'Forms' else '' for feature in features]
-    features = list(filter(lambda feature: feature != '', features))
+    # features = [feature if feature != 'Forms' else '' for feature in features]
+    # features = list(filter(lambda feature: feature != '', features))
 
     print('Bucket Name: ' + bucketName)
     print('Object Name: ' + objectName)
